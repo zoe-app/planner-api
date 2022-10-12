@@ -1,9 +1,7 @@
-import { Goal } from "../interfaces";
-import { GoalModel } from "../models/GoalModel";
+import { Goal, Task } from '../interfaces';
+import { GoalModel } from '../models';
 
 class GoalApp {
-  constructor() { }
-
   async create(goal: Goal): Promise<Goal> {
     await GoalModel.create(goal);
     return goal;
@@ -11,6 +9,11 @@ class GoalApp {
 
   async delete(id: string): Promise<void> {
     await GoalModel.deleteOne({ id });
+  }
+
+  async updateTasks(id: string, tasks: Task[]) {
+    const goal = await GoalModel.findOne({ id });
+    // Remove tasks array from goal model
   }
 }
 

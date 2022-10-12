@@ -1,5 +1,6 @@
-import { model, Schema } from "mongoose";
-import { Goal, Task } from "../interfaces";
+import { model, Schema } from 'mongoose';
+
+import { Goal, Task } from '../interfaces';
 
 const GoalSchema = new Schema<Goal>({
   name: { type: String, required: true },
@@ -7,9 +8,9 @@ const GoalSchema = new Schema<Goal>({
   userId: { type: String, required: true },
   createdAt: { type: Date, required: true },
   progress: { type: Number, required: true },
-  tasks: { required: true } // FIXME: Fix type
+  tasks: { type: [{} as Task], required: true },
 });
 
-interface GoalDocument extends Goal, Document { }
+interface GoalDocument extends Goal, Document {}
 
 export const GoalModel = model<GoalDocument>('goals', GoalSchema);

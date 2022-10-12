@@ -3,16 +3,19 @@ import { v4 as uuid } from 'uuid';
 
 import { goalApp } from '../apps';
 import { Goal } from '../interfaces';
+import { AuthMiddleware } from '../middlewares';
 
 const goalsRoutes = Router();
 
+goalsRoutes.use(AuthMiddleware);
+
 goalsRoutes.post('/create', async (req: Request, res: Response) => {
-  const { name } = req.body;
+  const { name, userId } = req.body;
 
   const newGoal: Goal = {
     name,
     id: uuid(),
-    userId: '',
+    userId,
     createdAt: new Date(),
     progress: 0,
     tasks: [],
