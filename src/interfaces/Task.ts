@@ -4,4 +4,5 @@ export interface Task {
   text: string;
   isDone: boolean;
   userId: string;
+  goalId: string;
 }

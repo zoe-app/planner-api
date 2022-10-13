@@ -18,7 +18,6 @@ export function AuthMiddleware(
     authtoken as string,
     process.env.TOKEN_SECRET
   ) as TokenPayload;
-  console.log(payload);
 
   req.body.userId = payload.id;
 

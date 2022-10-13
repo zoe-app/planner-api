@@ -18,7 +18,6 @@ goalsRoutes.post('/create', async (req: Request, res: Response) => {
     userId,
     createdAt: new Date(),
     progress: 0,
-    tasks: [],
   };
 
   await goalApp.create(newGoal);

@@ -8,6 +8,7 @@ const TaskSchema = new Schema<Task>({
   userId: { type: String, required: true },
   isDone: { type: Boolean, required: true },
   createdAt: { type: Date, required: true },
+  goalId: { type: String, required: true },
 });
 
 interface TaskDocument extends Task, Document {}
