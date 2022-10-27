@@ -2,7 +2,7 @@ import { Router, Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
 
 import { goalApp } from '../apps';
-import { Goal } from '../interfaces';
+import { CompleteGoal } from '../interfaces';
 import { AuthMiddleware } from '../middlewares';
 
 const goalsRoutes = Router();
@@ -12,12 +12,13 @@ goalsRoutes.use(AuthMiddleware);
 goalsRoutes.post('/create', async (req: Request, res: Response) => {
   const { name, userId } = req.body;
 
-  const newGoal: Goal = {
+  const newGoal: CompleteGoal = {
     name,
     id: uuid(),
     userId,
     createdAt: new Date(),
     progress: 0,
+    tasks: [],
   };
 
   await goalApp.create(newGoal);

@@ -27,7 +27,7 @@ taskRoutes.post('/:goalId', async (req: Request, res: Response) => {
   return res.status(201).json(task);
 });
 
-taskRoutes.delete(':id', async (req: Request, res: Response) => {
+taskRoutes.delete('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
 
   await taskApp.delete(id);
