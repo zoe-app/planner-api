@@ -1,7 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
-import jsonwebtoken from 'jsonwebtoken';
+/* eslint-disable prettier/prettier */
+import { NextFunction, Request, Response } from "express";
+import jsonwebtoken from "jsonwebtoken";
 
-import { TokenPayload } from '../interfaces';
+import { TokenPayload } from "../interfaces";
 
 export function AuthMiddleware(
   req: Request,
@@ -11,7 +12,7 @@ export function AuthMiddleware(
   const { authtoken } = req.headers;
 
   if (!authtoken) {
-    return res.status(403).send({ status: 403, error: 'Forbidden access' });
+    return res.status(403).send({ status: 403, error: "Forbidden access" });
   }
 
   const payload = jsonwebtoken.verify(

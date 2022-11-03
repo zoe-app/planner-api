@@ -1,4 +1,5 @@
-import { Task } from './Task';
+/* eslint-disable prettier/prettier */
+import { Task } from "./Task";
 
 export interface Goal {
   progress: number;
@@ -6,6 +7,7 @@ export interface Goal {
   createdAt: Date;
   id: string;
   userId: string;
+  tasks?: Task[];
 }
 
 export interface CompleteGoal {

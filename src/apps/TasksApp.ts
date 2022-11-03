@@ -1,5 +1,6 @@
-import { Task } from '../interfaces';
-import { GoalModel, TaskModel } from '../models';
+/* eslint-disable prettier/prettier */
+import { Task } from "../interfaces";
+import { GoalModel, TaskModel } from "../models";
 
 class TasksApp {
   async create(task: Task) {
