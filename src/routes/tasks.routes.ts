@@ -1,22 +1,23 @@
-import { Router, Request, Response } from 'express';
-import { v4 as uuid } from 'uuid';
+/* eslint-disable prettier/prettier */
+import { Router, Request, Response } from "express";
+import { v4 as uuid } from "uuid";
 
-import { taskApp } from '../apps/TasksApp';
-import { Task } from '../interfaces';
-import { AuthMiddleware } from '../middlewares';
+import { taskApp } from "../apps/TasksApp";
+import { Task } from "../interfaces";
+import { AuthMiddleware } from "../middlewares";
 
 const taskRoutes = Router();
 
 taskRoutes.use(AuthMiddleware);
 
-taskRoutes.post('/:goalId', async (req: Request, res: Response) => {
+taskRoutes.post("/:goalId", async (req: Request, res: Response) => {
   const { text, userId } = req.body;
   const { goalId } = req.params;
 
   const task: Task = {
     text,
     userId,
-    id: uuid(),
+    taskId: uuid(),
     createdAt: new Date(),
     goalId,
     isDone: false,
@@ -27,7 +28,7 @@ taskRoutes.post('/:goalId', async (req: Request, res: Response) => {
   return res.status(201).json(task);
 });
 
-taskRoutes.delete('/:id', async (req: Request, res: Response) => {
+taskRoutes.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
   await taskApp.delete(id);
@@ -35,15 +36,17 @@ taskRoutes.delete('/:id', async (req: Request, res: Response) => {
   return res.sendStatus(204);
 });
 
-taskRoutes.put('/:id', async (req: Request, res: Response) => {
+taskRoutes.put("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  console.log("Task route /id: ", id);
 
   await taskApp.update(id);
 
   return res.sendStatus(204);
 });
 
-taskRoutes.patch('/:id', async (req: Request, res: Response) => {
+taskRoutes.patch("/:id", async (req: Request, res: Response) => {
   const { newText } = req.body;
   const { id } = req.params;
 

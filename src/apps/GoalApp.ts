@@ -14,7 +14,7 @@ class GoalApp {
     // eslint-disable-next-line array-callback-return
     goalsForEdit.map((goal: any) => {
       const editableGoal = goal;
-      const goalsTasks = tasks.filter((x) => x.goalId === goal.id);
+      const goalsTasks = tasks.filter((x) => x.goalId === goal.goalId);
       editableGoal.tasks = goalsTasks;
 
       result = [...result, editableGoal];
@@ -28,8 +28,8 @@ class GoalApp {
     return goal;
   }
 
-  async delete(id: string): Promise<void> {
-    await GoalModel.deleteOne({ id });
+  async delete(goalId: string): Promise<void> {
+    await GoalModel.deleteOne({ goalId });
   }
 }
 

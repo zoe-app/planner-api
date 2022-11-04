@@ -21,7 +21,7 @@ goalsRoutes.post("/create", async (req: Request, res: Response) => {
 
   const newGoal: CompleteGoal = {
     name,
-    id: uuid(),
+    goalId: uuid(),
     userId,
     createdAt: new Date(),
     progress: 0,

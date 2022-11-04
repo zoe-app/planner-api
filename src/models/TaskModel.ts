@@ -1,9 +1,10 @@
-import { model, Schema } from 'mongoose';
+/* eslint-disable prettier/prettier */
+import { model, Schema } from "mongoose";
 
-import { Task } from '../interfaces';
+import { Task } from "../interfaces";
 
 const TaskSchema = new Schema<Task>({
-  id: { type: String, required: true },
+  taskId: { type: String, required: true },
   text: { type: String, required: true },
   userId: { type: String, required: true },
   isDone: { type: Boolean, required: true },
@@ -13,4 +14,4 @@ const TaskSchema = new Schema<Task>({
 
 interface TaskDocument extends Task, Document {}
 
-export const TaskModel = model<TaskDocument>('tasks', TaskSchema);
+export const TaskModel = model<TaskDocument>("tasks", TaskSchema);

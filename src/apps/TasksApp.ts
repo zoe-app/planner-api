@@ -8,19 +8,20 @@ class TasksApp {
     return task;
   }
 
-  async delete(id: string) {
-    await TaskModel.deleteOne({ id });
+  async delete(taskId: string) {
+    await TaskModel.deleteOne({ taskId });
 
-    const oldTask = await TaskModel.findOne({ id });
+    const oldTask = await TaskModel.findOne({ taskId });
     const tasks = await TaskModel.find({ goalId: oldTask.goalId });
 
     await this.updateProgress(oldTask.goalId, tasks);
   }
 
-  async update(id: string) {
-    const oldTask = await TaskModel.findOne({ id });
+  async update(taskId: string) {
+    console.log("Update... ", taskId);
+    const oldTask = await TaskModel.findOne({ taskId });
     const newTask = await TaskModel.findOneAndUpdate(
-      { id },
+      { taskId },
       { isDone: !oldTask.isDone },
       { new: true }
     );
@@ -32,9 +33,9 @@ class TasksApp {
     return { newTask, goal };
   }
 
-  async renameTask(id: string, newText: string) {
+  async renameTask(taskId: string, newText: string) {
     const newTask = await TaskModel.findOneAndUpdate(
-      { id },
+      { taskId },
       { text: newText },
       { new: true }
     );
@@ -48,8 +49,8 @@ class TasksApp {
 
     const newProgress = ((allTasksDone * 100) / allTasksNotDone).toFixed(2);
 
-    const goal = await GoalModel.findByIdAndUpdate(
-      { id: goalId },
+    const goal = await GoalModel.findOneAndUpdate(
+      { goalId },
       { progress: newProgress },
       { new: true }
     );

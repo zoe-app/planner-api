@@ -5,7 +5,7 @@ export interface Goal {
   progress: number;
   name: string;
   createdAt: Date;
-  id: string;
+  goalId: string;
   userId: string;
   tasks?: Task[];
 }
@@ -15,6 +15,6 @@ export interface CompleteGoal {
   progress: number;
   name: string;
   createdAt: Date;
-  id: string;
+  goalId: string;
   userId: string;
 }

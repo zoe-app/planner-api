@@ -1,5 +1,5 @@
 export interface Task {
-  id: string;
+  taskId: string;
   createdAt: Date;
   text: string;
   isDone: boolean;
