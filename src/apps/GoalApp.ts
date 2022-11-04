@@ -23,6 +23,15 @@ class GoalApp {
     return result;
   }
 
+  async getGoalById(goalId: string) {
+    const goal = await GoalModel.findOne({ goalId });
+    const tasks = await TaskModel.find({ goalId });
+
+    goal.tasks = tasks;
+
+    return goal;
+  }
+
   async create(goal: Goal): Promise<Goal> {
     await GoalModel.create(goal);
     return goal;

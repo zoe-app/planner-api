@@ -16,6 +16,12 @@ goalsRoutes.get("/goals", async (req: Request, res: Response) => {
   return res.status(200).json({ goals });
 });
 
+goalsRoutes.get("/goals/:goalId", async (req: Request, res: Response) => {
+  const { goalId } = req.params;
+  const goal = await goalApp.getGoalById(goalId);
+  return res.status(200).json({ goal });
+});
+
 goalsRoutes.post("/create", async (req: Request, res: Response) => {
   const { name, userId } = req.body;
 

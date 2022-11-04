@@ -9,9 +9,9 @@ class TasksApp {
   }
 
   async delete(taskId: string) {
-    await TaskModel.deleteOne({ taskId });
-
     const oldTask = await TaskModel.findOne({ taskId });
+
+    await TaskModel.deleteOne({ taskId });
     const tasks = await TaskModel.find({ goalId: oldTask.goalId });
 
     await this.updateProgress(oldTask.goalId, tasks);
