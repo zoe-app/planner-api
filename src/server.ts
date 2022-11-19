@@ -23,6 +23,6 @@ connect();
 
 app.listen(process.env.PORT, () => {
   console.log('**********************************************');
-  console.log(`************Auth API - Porta: ${process.env.PORT}************`);
+  console.log(`************Planner API - Porta: ${process.env.PORT}*********`);
   console.log('**********************************************');
 });

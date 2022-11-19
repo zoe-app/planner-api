@@ -1,24 +1,34 @@
 /* eslint-disable prettier/prettier */
-import { Task } from "../interfaces";
-import { GoalModel, TaskModel } from "../models";
+import { Task } from '../interfaces';
+import { GoalModel, TaskModel } from '../models';
 
 class TasksApp {
   async create(task: Task) {
     await TaskModel.create(task);
-    return task;
+
+    const tasks = await TaskModel.find({ goalId: task.goalId });
+
+    const { progress } = await this.updateProgress(task.goalId, tasks);
+
+    return { task , progress };
   }
 
-  async delete(taskId: string) {
+  async delete(taskId: string): Promise<number> {
     const oldTask = await TaskModel.findOne({ taskId });
 
     await TaskModel.deleteOne({ taskId });
     const tasks = await TaskModel.find({ goalId: oldTask.goalId });
 
-    await this.updateProgress(oldTask.goalId, tasks);
+    if (tasks.length === 0) {
+      return 0;
+    }
+
+    const { progress } = await this.updateProgress(oldTask.goalId, tasks);
+
+    return progress;
   }
 
   async update(taskId: string) {
-    console.log("Update... ", taskId);
     const oldTask = await TaskModel.findOne({ taskId });
     const newTask = await TaskModel.findOneAndUpdate(
       { taskId },
@@ -30,7 +40,7 @@ class TasksApp {
 
     const goal = await this.updateProgress(oldTask.goalId, tasks);
 
-    return { newTask, goal };
+    return { task: newTask, goal };
   }
 
   async renameTask(taskId: string, newText: string) {
@@ -45,9 +55,9 @@ class TasksApp {
 
   private async updateProgress(goalId: string, tasks: Task[]) {
     const allTasksDone = tasks.filter((x) => x.isDone === true).length;
-    const allTasksNotDone = tasks.filter((x) => x.isDone === false).length;
+    const allTasks = tasks.length;
 
-    const newProgress = ((allTasksDone * 100) / allTasksNotDone).toFixed(2);
+    const newProgress = (allTasksDone * 100) / allTasks;
 
     const goal = await GoalModel.findOneAndUpdate(
       { goalId },

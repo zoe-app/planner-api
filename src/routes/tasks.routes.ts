@@ -8,9 +8,9 @@ import { AuthMiddleware } from "../middlewares";
 
 const taskRoutes = Router();
 
-taskRoutes.use(AuthMiddleware);
+// taskRoutes.use(AuthMiddleware);
 
-taskRoutes.post("/:goalId", async (req: Request, res: Response) => {
+taskRoutes.post("/:goalId", AuthMiddleware, async (req: Request, res: Response) => {
   const { text, userId } = req.body;
   const { goalId } = req.params;
 
@@ -23,30 +23,28 @@ taskRoutes.post("/:goalId", async (req: Request, res: Response) => {
     isDone: false,
   };
 
-  await taskApp.create(task);
+  const taskRes = await taskApp.create(task);
 
-  return res.status(201).json(task);
+  return res.status(201).json(taskRes);
 });
 
-taskRoutes.delete("/:id", async (req: Request, res: Response) => {
+taskRoutes.delete("/:id", AuthMiddleware, async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  await taskApp.delete(id);
+  const progress = await taskApp.delete(id);
 
-  return res.sendStatus(204);
+  return res.status(200).json({ progress });
 });
 
 taskRoutes.put("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  console.log("Task route /id: ", id);
+  const updateRes = await taskApp.update(id);
 
-  await taskApp.update(id);
-
-  return res.sendStatus(204);
+  return res.status(200).json(updateRes);
 });
 
-taskRoutes.patch("/:id", async (req: Request, res: Response) => {
+taskRoutes.patch("/:id", AuthMiddleware, async (req: Request, res: Response) => {
   const { newText } = req.body;
   const { id } = req.params;
 
