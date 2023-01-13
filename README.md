@@ -1,19 +1,13 @@
-# Express API Template
+# Zoe - Planner API
 
-To facilitate mine and your creation of projects using Express, I made this dependency template.
+Planner API, using:
 
-The template includes the following dependencies:
-- Express
-- Typescript
-- Eslint (Single Quotes, Airbnb)
-- Prettier
+- Node.js
+- MongoDB and Mongoose
+- Axios
+- express
 
-How to use the template:
+All routes are protected with authentication, that is, the user needs to be authenticated by our authentication API (after logging in to the site) to be able to perform the operations of this API.
 
-#### `Use this repository as a template for your new repository`
-#### `npm install`
-#### `npm run dev`
-
-To change the main file, from "server.ts" to "index.ts", for example, just renew the command in package.json, and rename the file.
-
-- src/server.ts -> src/index.ts
+The user can create as many goals as he wants, and as many tasks as he wants in each goal.
+You can also delete and edit goals and tasks.
